@@ -1,7 +1,7 @@
 services:
   - type: web
     name: gym-api
-    runtime: node
+    env: node
     rootDir: gym-api
     buildCommand: npm install
     startCommand: npm start
@@ -24,7 +24,7 @@ services:
 
   - type: web
     name: gympoint
-    runtime: node
+    env: node
     rootDir: gympoint
     buildCommand: npm install && npm run build
     startCommand: npx serve -s build
