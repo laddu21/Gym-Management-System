@@ -2,12 +2,12 @@ services:
   - type: web
     name: gym-api
     env: node
-    rootDir: gym-api
+    rootDir: src/gym-api
     buildCommand: npm install
     startCommand: npm start
     buildFilter:
       paths:
-        - gym-api/**
+        - src/gym-api/**
     envVars:
       - key: NODE_ENV
         value: production
@@ -25,12 +25,12 @@ services:
   - type: web
     name: gympoint
     env: node
-    rootDir: gympoint
+    rootDir: src/gympoint
     buildCommand: npm install && npm run build
     startCommand: npx serve -s build
     buildFilter:
       paths:
-        - gympoint/**
+        - src/gympoint/**
     envVars:
       - key: NODE_ENV
         value: production
