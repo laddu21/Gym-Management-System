@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-
+import apiClient from '../services/apiClient';
 
 const SignInPage = ({ onAuthSuccess, registeredUser }) => {
     const [email, setEmail] = useState('');
@@ -18,27 +18,14 @@ const SignInPage = ({ onAuthSuccess, registeredUser }) => {
         setLoading(true);
         setError('');
         try {
-            const response = await fetch('/api/auth/login-gym', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ email, password })
-            });
-            let data;
-            try {
-                data = await response.json();
-            } catch (jsonErr) {
-                throw new Error('Login service unavailable. Please try again later.');
-            }
-            if (!response.ok) {
-                throw new Error(data.error || 'Invalid email or password');
-            }
+            const data = await apiClient.post('/auth/login-gym', { email, password });
             // Check if month changed and clear data
             const now = new Date();
             const currentMonth = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}`;
             const lastLoginMonth = localStorage.getItem('lastLoginMonth');
             if (!lastLoginMonth || lastLoginMonth !== currentMonth) {
                 try {
-                    await fetch('/api/auth/clear-month-data', { method: 'POST' });
+                    await apiClient.post('/auth/clear-month-data');
                 } catch (err) {
                     console.error('Failed to clear month data:', err);
                 }

@@ -4,6 +4,7 @@ import './App.css';
 import Main from './Components/Dashboard/Home/MainPage/Main';
 import SignInPage from './Pages/SignInPage';
 import RegisterGym from './Pages/RegisterGym';
+import apiClient from './services/apiClient';
 
 
 function App() {
@@ -35,15 +36,12 @@ function App() {
 
       // Check gyms exist
       try {
-        const response = await fetch('/api/auth/gyms-exist');
-        if (response.ok) {
-          const data = await response.json();
-          if (data.exists) {
-            setRegisteredUser({ gymName: data.gymName });
-            setShowRegister(false);
-          } else {
-            setShowRegister(true);
-          }
+        const data = await apiClient.get('/auth/gyms-exist');
+        if (data.exists) {
+          setRegisteredUser({ gymName: data.gymName });
+          setShowRegister(false);
+        } else {
+          setShowRegister(true);
         }
       } catch (err) {
         console.error('Failed to check gyms exist:', err);

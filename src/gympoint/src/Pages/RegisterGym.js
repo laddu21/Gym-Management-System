@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import apiClient from '../services/apiClient';
 
 const RegisterGym = ({ onRegisterSuccess, onShowLogin }) => {
     const [gymName, setGymName] = useState('');
@@ -14,20 +15,7 @@ const RegisterGym = ({ onRegisterSuccess, onShowLogin }) => {
         setLoading(true);
         setError('');
         try {
-            const response = await fetch('/api/auth/register-gym', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ gymName, email, password })
-            });
-            let data;
-            try {
-                data = await response.json();
-            } catch (jsonErr) {
-                throw new Error('Registration service unavailable. Please try again later.');
-            }
-            if (!response.ok) {
-                throw new Error(data.error || 'Registration failed');
-            }
+            const data = await apiClient.post('/auth/register-gym', { gymName, email, password });
             setSuccess('Registration successful!');
             if (onRegisterSuccess) onRegisterSuccess({ gymName: data.gymName, email: data.email });
         } catch (err) {
