@@ -27,24 +27,24 @@ app.use(express.json());
 app.use(morgan('combined'));
 
 // Connect to database
-const connectDB = require('./config/database');
+const connectDB = require('./src/config/database');
 connectDB().catch((err) => {
     console.error('Database connection failed:', err);
 });
 
 // Routes
-const authRoutes = require('./routes/auth');
-const leadsRoutes = require('./routes/leads');
-const membershipsRoutes = require('./routes/memberships');
-const trainersRoutes = require('./routes/trainers');
-const pitchesRoutes = require('./routes/pitches');
-const reportsRoutes = require('./routes/reports');
-const attendanceRoutes = require('./routes/attendance');
-const otpRoutes = require('./routes/otp');
-const userMembershipsRoutes = require('./routes/userMemberships');
-const performanceRoutes = require('./routes/performance');
-const monthlyReportsRoutes = require('./routes/monthly-reports');
-const configRoutes = require('./routes/config');
+const authRoutes = require('./src/routes/auth');
+const leadsRoutes = require('./src/routes/leads');
+const membershipsRoutes = require('./src/routes/memberships');
+const trainersRoutes = require('./src/routes/trainers');
+const pitchesRoutes = require('./src/routes/pitches');
+const reportsRoutes = require('./src/routes/reports');
+const attendanceRoutes = require('./src/routes/attendance');
+const otpRoutes = require('./src/routes/otp');
+const userMembershipsRoutes = require('./src/routes/userMemberships');
+const performanceRoutes = require('./src/routes/performance');
+const monthlyReportsRoutes = require('./src/routes/monthly-reports');
+const configRoutes = require('./src/routes/config');
 
 app.use('/api/auth', authRoutes);
 app.use('/api/leads', leadsRoutes);
